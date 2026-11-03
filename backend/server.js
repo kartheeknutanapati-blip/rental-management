@@ -7,7 +7,12 @@ import mongoose from 'mongoose';
 import { LOCALITIES, AMENITIES, RULES, NOISE_OWNER, NOISE_TENANT, scoreProperty } from './score.js';
 import { User, Prefs, Property, Ticket, Application, ser } from './models.js';
 
-await mongoose.connect(process.env.MONGODB_URI);
+try {
+  await mongoose.connect(process.env.MONGODB_URI);
+  console.log("✅ MongoDB Connected");
+} catch (err) {
+  console.error("❌ MongoDB Connection Error:", err);
+}
 
 const app = express();
 app.set('trust proxy', 1);
