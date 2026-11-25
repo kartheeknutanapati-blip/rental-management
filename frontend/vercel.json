@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "https://rental-management-backend-triw.onrender.com/api/:path*" }
+  ]
+}
