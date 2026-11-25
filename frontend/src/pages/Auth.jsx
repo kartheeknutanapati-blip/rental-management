@@ -2,8 +2,6 @@ import { useState } from 'react';
 import { api } from '../api.js';
 import { Skyline } from '../ui.jsx';
 
-const DEMO = [['👑 Admin', 'admin@rental.com', 'Admin@123'], ['🏢 Owner', 'owner1@rental.com', 'Owner@123'], ['🔑 Tenant', 'tenant1@rental.com', 'Tenant@123']];
-
 export default function Auth({ onUser }) {
   const [f, setF] = useState({ name: '', email: '', phone: '', password: '', role: 'tenant' });
   const [reg, setReg] = useState(false), [err, setErr] = useState(''), [busy, setBusy] = useState(false);
@@ -43,10 +41,6 @@ export default function Auth({ onUser }) {
           <input type="password" placeholder="Password" value={f.password} onChange={set('password')} required />
           {err && <p className="err">{err}</p>}
           <button className="btn big" disabled={busy}>{busy ? 'Please wait…' : reg ? 'Create account' : 'Sign in'}</button>
-          {!reg && <div className="demo">
-            <small>Demo accounts (click to fill)</small>
-            <div>{DEMO.map(([l, e, p]) => <button type="button" key={e} onClick={() => setF({ ...f, email: e, password: p })}>{l}</button>)}</div>
-          </div>}
         </form>
       </section>
     </div>
