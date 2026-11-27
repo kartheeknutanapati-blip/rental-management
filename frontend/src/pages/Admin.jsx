@@ -26,6 +26,6 @@ export function AdminProperties() {
     <PageHeader theme="listings" icon="🏢" title="All Properties" sub="Review and moderate every listing." />
     <div className="card tbl"><table><thead><tr><th>Property</th><th>Locality</th><th>Owner</th><th>Rent</th><th>Status</th><th /></tr></thead>
       <tbody>{(rows || []).map(p => <tr key={p.id}><td><b>{p.title}</b><br /><small className="muted">{p.bedrooms} BHK · {p.furnishing}</small></td><td>{p.locality}</td><td>{p.owner}</td><td>{money(p.rent)}</td>
-        <td><span className={'badge ' + (p.available ? 'Great' : 'Not')}>{p.available ? 'Available' : 'Unavailable'}</span></td><td><button className="btn sm danger" onClick={() => del(p)}>Remove</button></td></tr>)}</tbody></table></div>
+        <td><span className={'badge ' + (p.rented ? 'st-Accepted' : p.available ? 'Great' : 'Not')}>{p.rented ? '🔒 Rented' : p.available ? 'Available' : 'Unavailable'}</span></td><td><button className="btn sm danger" onClick={() => del(p)}>Remove</button></td></tr>)}</tbody></table></div>
   </>);
 }

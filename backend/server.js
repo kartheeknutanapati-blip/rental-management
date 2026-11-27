@@ -182,8 +182,9 @@ app.patch('/api/tickets/:id', need('landlord', 'admin'), h(async (req, res) => {
 // ---- Admin ----
 app.get('/api/admin/users', need('admin'), h(async (_, res) => res.json((await User.find().select('name email phone role createdAt').sort({ role: 1, _id: 1 }).lean()).map(ser))));
 app.get('/api/admin/properties', need('admin'), h(async (_, res) => {
+  const rented = new Set((await rentedIds()).map(String));
   const rows = await Property.find({}, { photos: { $slice: 1 } }).sort({ _id: -1 }).populate('owner_id', 'name').lean();
-  res.json(rows.map(p => ({ ...ser(p), owner: p.owner_id?.name, owner_id: p.owner_id?._id })));
+  res.json(rows.map(p => ({ ...ser(p), owner: p.owner_id?.name, owner_id: p.owner_id?._id, rented: rented.has(String(p._id)), available: p.available && !rented.has(String(p._id)) })));
 }));
 app.delete('/api/admin/users/:id', need('admin'), h(async (req, res) => {
   const u = await User.findById(req.params.id);
